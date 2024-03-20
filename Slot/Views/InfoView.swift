@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct InfoView: View {
+    @Environment(\.presentationMode) var pm
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             LogoView()
@@ -39,6 +40,19 @@ struct InfoView: View {
             }
             .font(.system(.body, design: .rounded))
         }
+        .padding(.top, 40)
+        .overlay(alignment: .topTrailing) {
+            Button {
+                self.pm.wrappedValue.dismiss()
+            } label: {
+                Image(systemName: "xmark.circle")
+                    .font(.title)
+            }
+            .padding(.top, 30)
+            .padding(.trailing, 20)
+            .tint(Color.secondary)
+        }
+        
     }
 }
 
