@@ -92,7 +92,43 @@ struct ContentView: View {
 
 
                 Spacer()
-
+                
+                HStack {
+                    // MARK: - BET 20
+                    HStack(alignment: .center, spacing: 10) {
+                        Button {
+                            
+                        } label: {
+                            Text("20")
+                                .fontWeight(.heavy)
+                                .foregroundStyle(Color.white)
+                                .modifier(BetNumberModifier())
+                        }
+                        .modifier(BetCapsuleModifier())
+                        
+                        Image("gfx-casino-chips")
+                            .resizable()
+                            .opacity(0)
+                            .modifier(CasinoChipsModifier())
+                        
+                    }
+                    // MARK: - BET 10
+                    HStack(alignment: .center, spacing: 10) {
+                        Image("gfx-casino-chips")
+                            .resizable()
+                            .opacity(1)
+                            .modifier(CasinoChipsModifier())
+                        Button {
+                            // 10 coins
+                        } label: {
+                            Text("10")
+                                .fontWeight(.heavy)
+                                .foregroundStyle(Color.yellow)
+                                .modifier(BetNumberModifier())
+                        }
+                        .modifier(BetCapsuleModifier())
+                    }
+                }
             }
             // MARK: - BUTTONS
             .overlay(alignment: .topLeading) {
@@ -121,10 +157,9 @@ struct ContentView: View {
             // MARK: - POPUP
 
         }
-        
         .padding()
+        
     }
-    
 }
 
 #Preview {
