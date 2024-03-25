@@ -16,7 +16,7 @@ let symbols = ["gfx-bell",
                "gfx-seven",
                "gfx-strawberry"
 ]
-    @State private var highScore: Int = 0
+    @State private var highScore: Int = UserDefaults.standard.integer(forKey: "HighScore")
     @State private var coins: Int = 100
     @State private var betAmount: Int = 10
     @State private var reels: Array = [0, 1, 2]
@@ -56,6 +56,7 @@ let symbols = ["gfx-bell",
     
     func newHighScore() {
         highScore = coins
+        UserDefaults.standard.set(highScore, forKey: "HighScore")
     }
     
     func playerLoses() {
