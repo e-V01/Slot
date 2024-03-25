@@ -16,6 +16,8 @@ let symbols = ["gfx-bell",
                "gfx-seven",
                "gfx-strawberry"
 ]
+    let haptics = UINotificationFeedbackGenerator()
+    
     @State private var highScore: Int = UserDefaults.standard.integer(forKey: "HighScore")
     @State private var coins: Int = 100
     @State private var betAmount: Int = 10
@@ -37,6 +39,7 @@ let symbols = ["gfx-bell",
             Int.random(in: 0...symbols.count - 1)
         })
         playSound(sound: "spin", type: "mp3")
+        haptics.notificationOccurred(.success)
     }
     // check winning
     func checkWinning() {
@@ -74,6 +77,7 @@ let symbols = ["gfx-bell",
         isActiveBet20 = true
         isActiveBet10 = false
         playSound(sound: "casino-chips", type: "mp3")
+        haptics.notificationOccurred(.success)
     }
     
     func activateBet10() {
@@ -81,6 +85,7 @@ let symbols = ["gfx-bell",
         isActiveBet10 = true
         isActiveBet20 = false
         playSound(sound: "casino-chips", type: "mp3")
+        haptics.notificationOccurred(.success)
     }
     
     func isGameOver() {
