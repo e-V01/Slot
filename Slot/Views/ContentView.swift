@@ -24,6 +24,7 @@ let symbols = ["gfx-bell",
     @State private var isActiveBet10: Bool = true
     @State private var isActiveBet20: Bool = false
     @State private var showingModal: Bool = false
+    @State private var animatingSymbol: Bool = false
 
     //MARK: - FUNC
     // spin reels
@@ -134,12 +135,21 @@ let symbols = ["gfx-bell",
                 }
                 // MARK: - SLOTS
                 VStack(alignment: .center, spacing: 0) {
-                    // MARK: - REEL #1
+                    
+                    
+                // MARK: - REEL #1
                     ZStack {
                         ReelView()
                         Image(symbols[reels[0]])
                             .resizable()
                             .modifier(ImageModifier())
+                            .opacity(animatingSymbol ? 1 : 0)
+                            .offset(y: animatingSymbol ? 0 : -100)
+                            .animation(.easeOut(duration: Double.random(in: 0.5...0.7)))
+                            .onAppear {
+                                self.animatingSymbol.toggle()
+                                // will trigger animation after it appeared on screen
+                            }
                     }
                     
                     HStack(alignment: .center, spacing: 0) {
@@ -149,6 +159,13 @@ let symbols = ["gfx-bell",
                             Image(symbols[reels[1]])
                                 .resizable()
                                 .modifier(ImageModifier())
+                                .opacity(animatingSymbol ? 1 : 0)
+                                .offset(y: animatingSymbol ? 0 : -100)
+                                .animation(.easeOut(duration: Double.random(in: 0.7...0.9)))
+                                .onAppear {
+                                    self.animatingSymbol.toggle()
+                                    
+                                }
                         }
                         Spacer()
                         
@@ -158,17 +175,34 @@ let symbols = ["gfx-bell",
                             Image(symbols[reels[2]])
                                 .resizable()
                                 .modifier(ImageModifier())
+                                .opacity(animatingSymbol ? 1 : 0)
+                                .offset(y: animatingSymbol ? 0 : -100)
+                                .animation(.easeOut(duration: Double.random(in: 0.7...0.9)))
+                                .onAppear {
+                                    self.animatingSymbol.toggle()
+                                    
+                                }
                         }
                     }
                     .frame(maxWidth: 500)
                     
                     // MARK: - SPIN BUTTN
                     Button {
-                        // reset game
+                        // 1. Set default state
+                        withAnimation {
+                            self.animatingSymbol = false
+                        }
+                        // 2. Spin reels with changing symbols
                         self.spinReels()
-                        // check winning
+                        // 3. Trigger the animation after changing the symbols
+                        withAnimation {
+                            self.animatingSymbol = true
+                        }
+                        
+                        // 4. Check winning
                         self.checkWinning()
-                        // game over
+                        
+                        // 5. Game over
                         self.isGameOver()
                     } label: {
                         Image("gfx-spin")
