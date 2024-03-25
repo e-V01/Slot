@@ -36,6 +36,7 @@ let symbols = ["gfx-bell",
         reels = reels.map({ _ in
             Int.random(in: 0...symbols.count - 1)
         })
+        playSound(sound: "spin", type: "mp3")
     }
     // check winning
     func checkWinning() {
@@ -45,6 +46,8 @@ let symbols = ["gfx-bell",
             // new high score
             if coins > highScore {
                 newHighScore()
+            } else {
+                playSound(sound: "win", type: "mp3")
             }
         } else {
             // player loses
@@ -59,6 +62,7 @@ let symbols = ["gfx-bell",
     func newHighScore() {
         highScore = coins
         UserDefaults.standard.set(highScore, forKey: "HighScore")
+        playSound(sound: "high-score", type: "mp3")
     }
     
     func playerLoses() {
@@ -69,17 +73,20 @@ let symbols = ["gfx-bell",
         betAmount = 20
         isActiveBet20 = true
         isActiveBet10 = false
+        playSound(sound: "casino-chips", type: "mp3")
     }
     
     func activateBet10() {
         betAmount = 10
         isActiveBet10 = true
         isActiveBet20 = false
+        playSound(sound: "casino-chips", type: "mp3")
     }
     
     func isGameOver() {
         if coins <= 0 {
             showingModal = true
+            playSound(sound: "game-over", type: "mp3")
         }
     }
     
@@ -92,6 +99,7 @@ let symbols = ["gfx-bell",
         // reset back to 100
         activateBet10()
         // reset to 10 in case been 20
+        playSound(sound: "chimeup", type: "mp3")
     }
     
     // game over
@@ -150,6 +158,7 @@ let symbols = ["gfx-bell",
                             .onAppear {
                                 self.animatingSymbol.toggle()
                                 // will trigger animation after it appeared on screen
+                                playSound(sound: "riseup", type: "mp3")
                             }
                     }
                     
