@@ -81,6 +81,17 @@ let symbols = ["gfx-bell",
         }
     }
     
+    func resetGame() {
+        UserDefaults.standard.set(0, forKey: "HighScore")
+        // override score to 0
+        highScore = 0
+        //reset score to 0
+        coins = 100
+        // reset back to 100
+        activateBet10()
+        // reset to 10 in case been 20
+    }
+    
     // game over
     var body: some View {
         ZStack {
@@ -212,7 +223,7 @@ let symbols = ["gfx-bell",
             // MARK: - BUTTONS
             .overlay(alignment: .topLeading) {
                 Button {
-                    print("reset game")
+                    self.resetGame()
                 } label: {
                     Image(systemName: "arrow.2.circlepath.circle")
                         
